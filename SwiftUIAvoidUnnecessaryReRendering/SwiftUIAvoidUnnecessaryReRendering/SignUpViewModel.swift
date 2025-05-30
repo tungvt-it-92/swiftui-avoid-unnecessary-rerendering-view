@@ -1,6 +1,8 @@
 import Combine
+import Observation
 
-class SignUpViewModel: ObservableObject {
-    @Published var email: String = ""
-    @Published var password: String = ""
+@Observable
+class SignUpViewModel {
+    var email: String = ""
+    var password: String = ""
 }

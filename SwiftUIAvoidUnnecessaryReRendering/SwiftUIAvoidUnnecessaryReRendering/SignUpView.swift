@@ -1,26 +1,25 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @StateObject var viewModel: SignUpViewModel = .init()
+    @State var viewModel: SignUpViewModel = .init()
 
     var body: some View {
         let _ = Self._printChanges()
         VStack {
-            EmailView(email: $viewModel.email)
-            PasswordView(password: $viewModel.password)
-            DoNotUseViewModelView()
+            EmailView(viewModel: viewModel)
+            PasswordView(viewModel: viewModel)
+            DoNotUseViewModelView(viewModel: viewModel)
         }
-        .environmentObject(viewModel)
     }
 }
 
 struct EmailView: View {
-    @Binding var email: String
+    @Bindable var viewModel: SignUpViewModel
 
     var body: some View {
         let _ = Self._printChanges()
 
-        TextField("Enter email", text: $email)
+        TextField("Enter email", text: $viewModel.email)
             .padding()
             .background(Color(.systemGray6))
             .cornerRadius(50)
@@ -33,11 +32,11 @@ struct EmailView: View {
 }
 
 struct PasswordView: View {
-    @Binding var password: String
+    @Bindable var viewModel: SignUpViewModel
 
     var body: some View {
         let _ = Self._printChanges()
-        SecureField("Enter password", text: $password)
+        SecureField("Enter password", text: $viewModel.password)
             .padding()
             .background(Color(.systemGray6))
             .cornerRadius(50)
@@ -50,8 +49,12 @@ struct PasswordView: View {
 }
 
 struct DoNotUseViewModelView: View {
-
+    var viewModel: SignUpViewModel
+    
     var body: some View {
+//        let _ = viewModel.email
+//        let _ = viewModel.password
+        
         let _ = Self._printChanges()
         Text("Do Not Use View Model View")
     }
