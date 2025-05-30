@@ -6,8 +6,8 @@ struct SignUpView: View {
     var body: some View {
         let _ = Self._printChanges()
         VStack {
-            EmailView(viewModel: viewModel)
-            PasswordView(viewModel: viewModel)
+            EmailView(email: $viewModel.email)
+            PasswordView(password: $viewModel.password)
             DoNotUseViewModelView()
         }
         .environmentObject(viewModel)
@@ -15,12 +15,12 @@ struct SignUpView: View {
 }
 
 struct EmailView: View {
-    @ObservedObject var viewModel: SignUpViewModel
+    @Binding var email: String
 
     var body: some View {
         let _ = Self._printChanges()
 
-        TextField("Enter email", text: $viewModel.email)
+        TextField("Enter email", text: $email)
             .padding()
             .background(Color(.systemGray6))
             .cornerRadius(50)
@@ -33,11 +33,11 @@ struct EmailView: View {
 }
 
 struct PasswordView: View {
-    @ObservedObject var viewModel: SignUpViewModel
+    @Binding var password: String
 
     var body: some View {
         let _ = Self._printChanges()
-        SecureField("Enter password", text: $viewModel.password)
+        SecureField("Enter password", text: $password)
             .padding()
             .background(Color(.systemGray6))
             .cornerRadius(50)
@@ -50,7 +50,6 @@ struct PasswordView: View {
 }
 
 struct DoNotUseViewModelView: View {
-    @EnvironmentObject var viewModel: SignUpViewModel
 
     var body: some View {
         let _ = Self._printChanges()
